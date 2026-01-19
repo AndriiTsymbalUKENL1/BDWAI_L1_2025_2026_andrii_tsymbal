@@ -1,0 +1,33 @@
+﻿@model IEnumerable<plat_kurs.Models.Category>
+
+@{
+    ViewData["Title"] = "Kategorie";
+}
+
+<h1>Lista Kategorii</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Dodaj nową kategorię</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nazwa Kategorii</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edytuj</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

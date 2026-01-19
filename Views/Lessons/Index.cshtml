@@ -1,0 +1,92 @@
+﻿@model IEnumerable<plat_kurs.Models.Category>
+
+@{
+    ViewData["Title"] = "Program nauczania";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h1 class="display-5">Program nauczania</h1>
+        <a asp-action="Create" class="btn btn-primary btn-lg shadow">
+            + Dodaj nową lekcję
+        </a>
+    </div>
+
+    @foreach (var category in Model)
+    {
+        // Wyświetl kategorię tylko jeśli ma jakieś kursy
+        if (category.Courses != null && category.Courses.Any())
+        {
+            <div class="mb-5">
+                <h2 class="border-bottom pb-2 mb-3 text-primary">
+                    <span class="badge bg-primary me-2">Dział</span> @category.Name
+                </h2>
+
+                <div class="row">
+                    @foreach (var course in category.Courses)
+                    {
+                        <div class="col-12 mb-4">
+                            <div class="card shadow-sm border-0">
+                                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                                    <h4 class="mb-0 text-dark">@course.Title</h4>
+                                    <span class="badge bg-secondary">Cena: @course.Price PLN</span>
+                                </div>
+                                <div class="card-body p-0">
+
+                                    <table class="table table-hover table-striped mb-0">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th style="width: 50px;">Nr</th>
+                                                <th>Temat Lekcji</th>
+                                                <th>Treść (skrót)</th>
+                                                <th class="text-end pe-4">Akcje</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (course.Lessons != null && course.Lessons.Any())
+                                            {
+                                                @foreach (var lesson in course.Lessons.OrderBy(l => l.LessonNumber))
+                                                {
+                                                    <tr>
+                                                        <td class="text-center fw-bold">@lesson.LessonNumber</td>
+                                                        <td class="fw-bold">@lesson.Title</td>
+                                                        <td class="text-muted">
+                                                            @if (!string.IsNullOrEmpty(lesson.Content) && lesson.Content.Length > 50)
+                                                            {
+                                                                @(lesson.Content.Substring(0, 50) + "...")
+                                                            }
+                                                            else
+                                                            {
+                                                                @lesson.Content
+                                                            }
+                                                        </td>
+                                                        <td class="text-end pe-4">
+                                                            <div class="btn-group">
+                                                                <a asp-action="Edit" asp-route-id="@lesson.Id" class="btn btn-sm btn-outline-warning">Edytuj</a>
+                                                                <a asp-action="Delete" asp-route-id="@lesson.Id" class="btn btn-sm btn-outline-danger">Usuń</a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="4" class="text-center text-muted py-3">
+                                                        Ten kurs nie ma jeszcze dodanych lekcji.
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    }
+</div>

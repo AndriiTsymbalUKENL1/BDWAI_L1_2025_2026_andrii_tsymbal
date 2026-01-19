@@ -1,0 +1,66 @@
+﻿@model IEnumerable<plat_kurs.Models.Category>
+
+@{
+    ViewData["Title"] = "Katalog Kursów";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h1 class="display-5">Katalog Kursów</h1>
+        <a asp-action="Create" class="btn btn-success btn-lg shadow">
+            + Stwórz nowy kurs
+        </a>
+    </div>
+
+    @foreach (var category in Model)
+    {
+        if (category.Courses != null && category.Courses.Any())
+        {
+            <div class="mb-5">
+                <h3 class="border-bottom pb-2 mb-4 text-primary">
+                    <span class="badge bg-primary me-2">Kategoria</span> @category.Name
+                </h3>
+
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    @foreach (var course in category.Courses)
+                    {
+                        <div class="col">
+                            <div class="card h-100 shadow-sm border-0 hover-effect">
+                                <div class="card-header bg-white border-bottom-0 pt-3">
+                                    <h4 class="card-title text-dark">@course.Title</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="text-success fw-bold mb-3">@course.Price PLN</h5>
+                                    <p class="card-text text-muted">
+                                        @if (!string.IsNullOrEmpty(course.Description) && course.Description.Length > 100)
+                                        {
+                                            @(course.Description.Substring(0, 100) + "...")
+                                        }
+                                        else
+                                        {
+                                            @course.Description
+                                        }
+                                    </p>
+                                </div>
+                                <div class="card-footer bg-white border-top-0 pb-3">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <a asp-action="Edit" asp-route-id="@course.Id" class="btn btn-outline-warning btn-sm">Edytuj</a>
+                                        <a asp-action="Delete" asp-route-id="@course.Id" class="btn btn-outline-danger btn-sm">Usuń</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    }
+
+    @if (!Model.Any(c => c.Courses != null && c.Courses.Any()))
+    {
+        <div class="alert alert-info text-center">
+            Brak dostępnych kursów. Dodaj najpierw Kategorię, a potem Kurs.
+        </div>
+    }
+</div>
