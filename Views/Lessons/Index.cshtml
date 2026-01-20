@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Program nauczania";
-    Layout = "~/Pages/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container mt-4">
@@ -63,8 +63,8 @@
                                                         </td>
                                                         <td class="text-end pe-4">
                                                             <div class="btn-group">
-                                                                <a asp-action="Edit" asp-route-id="@lesson.Id" class="btn btn-sm btn-outline-warning">Edytuj</a>
-                                                                <a asp-action="Delete" asp-route-id="@lesson.Id" class="btn btn-sm btn-outline-danger">Usuń</a>
+                                                                <a asp-action="Edit" asp-route-id="@lesson.Id" class="btn btn-sm btn-warning">Edytuj</a>
+                                                                <a asp-action="Delete" asp-route-id="@lesson.Id" class="btn btn-sm btn-danger">Usuń</a>
                                                             </div>
                                                         </td>
                                                     </tr>
