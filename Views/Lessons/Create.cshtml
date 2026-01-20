@@ -2,14 +2,14 @@
 
 @{
     ViewData["Title"] = "Dodaj Lekcję";
-    Layout = "~/Pages/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-sm">
-                <div class="card-header bg-success text-white">
+                <div class="card-header bg-success bg-primary text-white">
                     <h4 class="mb-0">Dodaj nową lekcję</h4>
                 </div>
                 <div class="card-body">
@@ -41,7 +41,7 @@
 
                         <div class="d-flex justify-content-end mt-3">
                             <a asp-action="Index" class="btn btn-secondary me-2">Anuluj</a>
-                            <input type="submit" value="Dodaj lekcję" class="btn btn-success px-4" />
+                            <input type="submit" value="Dodaj lekcję" class="btn bg-primary btn-success px-4" />
                         </div>
                     </form>
                 </div>
