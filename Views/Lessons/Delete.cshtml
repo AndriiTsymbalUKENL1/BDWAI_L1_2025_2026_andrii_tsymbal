@@ -1,0 +1,20 @@
+﻿@model plat_kurs.Models.Lesson
+@{
+    ViewData["Title"] = "Usuń"; Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h3>Czy na pewno chcesz usunąć tę lekcję?</h3>
+    <div class="card border-danger mt-3">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Title</h5>
+            <p class="card-text">@Model.Content</p>
+            <p class="text-muted">Kurs: @Model.Course?.Title</p>
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Usuń definitywnie" class="btn btn-danger" />
+                <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+            </form>
+        </div>
+    </div>
+</div>

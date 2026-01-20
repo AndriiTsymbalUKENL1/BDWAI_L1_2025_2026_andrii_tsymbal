@@ -1,0 +1,60 @@
+﻿@model plat_kurs.Models.Lesson
+
+@{
+    ViewData["Title"] = "Edytuj Lekcję";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0">Edytuj lekcję</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Title" class="form-control" placeholder="Temat" />
+                            <label asp-for="Title">Temat lekcji</label>
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="LessonNumber" class="form-control" placeholder="Numer" type="number" />
+                            <label asp-for="LessonNumber">Numer lekcji (kolejność)</label>
+                            <span asp-validation-for="LessonNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
+                            <label asp-for="CourseId">Przypisany Kurs</label>
+                            <span asp-validation-for="CourseId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <textarea asp-for="Content" class="form-control" placeholder="Treść" style="height: 150px"></textarea>
+                            <label asp-for="Content">Treść materiału</label>
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-end mt-3">
+                            <a asp-action="Index" class="btn btn-secondary me-2">Anuluj</a>
+                            <input type="submit" value="Zapisz zmiany" class="btn btn-warning px-4" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
